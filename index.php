@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $author = $_POST['author'];
     $cat = $_POST['category'];
-    // $ISBN = $_POST['ISBN'];
+    $ISBN = null;
 
     //query to collect my books
     $booksearch = "SELECT books.ISBN, books.BookTitle, books.Author, categories.CategoryDetails, books.Reserve
@@ -72,7 +72,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <!-- start of body -->
+
+    <div class="links">
+
+
+        <a href="register.php">Sign up now</a>
+        <a href="login.php">Log In</a>
+        <a href="reservedbooks.php">ReservedBooks</a>
+
+
+    </div>
     <h1>Search for a Book Within the Library</h1>
     <form method="POST">
         <label for="title">Book Title:</label>
@@ -140,16 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    <!-- some linkes to regirster and also login -->
-    <div class="links">
 
-
-        <a href="register.php">Sign up now</a>
-        <a href="login.php">Log In</a>
-        <a href="reservedbooks.php">ReservedBooks</a>
-
-
-    </div>
 </body>
 
 

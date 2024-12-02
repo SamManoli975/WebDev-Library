@@ -2,11 +2,12 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-// Create connection
+
+//connection
 $conn = new mysqli($servername, $username, $password, "library2");
-// Check connection
+//check connection
 if ($conn->connect_error) {
-die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 // echo "Connected successfully<br>";
 

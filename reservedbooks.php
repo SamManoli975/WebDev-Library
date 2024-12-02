@@ -13,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_ISBN'])){
     $stmt->bind_param("s", $ISBN);
 
     if ($stmt->execute()) {
-        echo "Reservation removed successfully.";
+        // echo "Reservation removed successfully.";
         // header('Location: reserved_books.php'); // Redirect to the same page to reflect changes
         // exit();
     } else {
-        echo "Failed to remove the reservation.";
+        // echo "Failed to remove the reservation.";
     }
     $stmt->close();
 }
@@ -40,7 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_ISBN'])){
                 <tr>
                     <th>Title</th>
                     <th>Author</th>
+                    <th>Year</th>
+                    <th>Edition</th>
                     <th>ISBN</th>
+                    <th>Reservation</th>
+                    
                     
                 </tr>
             </thead>
@@ -49,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_ISBN'])){
                     <tr>
                         <td><?= htmlentities($row['BookTitle']); ?></td>
                         <td><?= htmlentities($row['Author']); ?></td>
+                        <td><?= htmlentities($row['Year']); ?></td>
+                        <td><?= htmlentities($row['Edition']); ?></td>
                         <td><?= htmlentities($row['ISBN']); ?></td>
                         <td>
                             <form method="POST">
