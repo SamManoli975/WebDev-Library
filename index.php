@@ -1,14 +1,8 @@
 <?php
 // session_start();
 // echo 'Session ID: ' . session_id();
-
 //require my databse.php file
 require_once 'database.php';
-
-
-
-
-
 //my categoryQuery to select the relvant category information
 $catQuery = "SELECT CategoryID, CategoryDetails FROM categories";
 $catResult = $conn->query($catQuery);
@@ -35,29 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cat ? $booksearch .= " AND books.Category = '$cat'" : null;
     $ISBN ? $booksearch .= " AND books.ISBN = '$ISBN'" : null;
 
-
-
     //result by passing the query to the connection
     $result = $conn->query($booksearch);
-
-
     //if the result is positive and has more than 0 rows
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             //add the row to search results
             $searchResults[] = $row;
-
-
         }
-
-
     }
 }
 //end of php
-
 ?>
-
-
 <!-- start of html -->
 <!DOCTYPE html>
 
@@ -72,16 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <main>
 
-    <div class="links">
-
-
-        <a href="register.php">Sign up now</a>
-        <a href="login.php">Log In</a>
-        <a href="reservedbooks.php">ReservedBooks</a>
+<div class="links">
 
 
-    </div>
+<a class="linka" href="register.php">Sign up now</a>
+<a class="linka" href="login.php">Log In</a>
+<a class="linka" href="reservedbooks.php">ReservedBooks</a>
+<a class="linka" href="index.php">Home</a>
+
+
+
+</div>
     <h1>Search for a Book Within the Library</h1>
     <form method="POST">
         <label for="title">Book Title:</label>
@@ -102,21 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             ?>
         </select>
-
         <button type="submit"> Search </button>
     </form>
-    <!-- if the search results are not empty -->
+    <!-- if the search results are not  empty -->
     <?php if (!empty($searchResults)): ?>
-
         <h2>Search Results</h2>
         <div class="results">
-            <!-- for each book in the search results -->
+            <!-- search for each book in the results -->
             <?php foreach ($searchResults as $book): ?>
-                <ul>
-
-                    <!-- output them as a list component -->
+                <ul>    
                     <li>
-
                         <strong>Title:</strong> <?= htmlentities($book['BookTitle']); ?><br>
                         <strong>Author:</strong> <?= htmlentities($book['Author']); ?><br>
                         <strong>Category:</strong> <?= htmlentities($book['CategoryDetails']); ?>
@@ -130,27 +111,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <p><strong>Status:</strong> Already Reserved</p>
                         <?php endif; ?>
                     </li>
-
                 </ul>
-
             <?php endforeach; ?>
-
-
         </div>
         <!-- if there were no search results then no results found -->
-
     <?php else: ?>
-
         <div class="results">
-
             <h2>No Results Found</h2>
-
-
         </div>
     <?php endif; ?>
-
-
+    </main>
+    <footer class="cool-footer">
+        <div class="footer-content">
+            <div class="footer-section footer-links">
+                <a href="#">Home</a>
+                <a href="#">Reserved Books</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2024 Library Management System. All Rights Reserved.
+        </div>
+    </footer>
 </body>
-
-
 </html>

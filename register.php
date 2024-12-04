@@ -70,27 +70,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Telephone = $_POST['Telephone'];
     $Mobile = $_POST['Mobile'];
 
+    //check if mobile is numeric and 10 digits long
     if (!is_numeric($Mobile) || strlen($Mobile) != 10) {
         echo "<div class='alert alert-danger'>Mobile number must be numeric and exactly 10 digits long.</div>";
         exit();
     }
 
-    // Validate password
+    //validate password
     if (strlen($p) != 6) {
         echo "<div class='alert alert-danger'>Password must be exactly 6 characters long.</div>";
         exit();
     }
 
-    // Check if password matches confirmation
+    // check if password matches confirmation
     if ($p !== $pVal) {
         echo "<div class='alert alert-danger'>Passwords do not match. Please try again.</div>";
         exit();
     }
 
-    // Check if username already exists in the database
+    // check if username already exists in the database
     $sql_check = "SELECT * FROM users WHERE UserName = '$Un'";
     $result = $conn->query($sql_check);
 
+    //if it returns result for the user searrch
     if ($result->num_rows > 0) {
         echo "<div class='alert alert-danger'>Username already exists. Please choose another one.</div>";
         exit();
