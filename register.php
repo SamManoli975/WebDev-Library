@@ -5,48 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
     <div class="container">
-    <h2 class="mt-4">Add A New User</h2>
-    <form method="post" name="userform">
-        <p>UserName:
-            <input type="text" class="form-control" name="UserName" required>
-            <small id="usernameError" class="error-message"></small>
-        </p>
-        <p>Password:
-            <input type="password" class="form-control" name="password" required>
-        </p>
-        <p>Password Validation:
-            <input type="password" class="form-control" name="passwordVal" required>
-        </p>
-        <p>FirstName:
-            <input type="text" class="form-control" name="FirstName" required>
-        </p>
-        <p>Surname:
-            <input type="text" class="form-control" name="Surname" required>
-        </p>
-        <p>AddressLine1:
-            <input type="text" class="form-control" name="Address1" required>
-        </p>
-        <p>AddressLine2:
-            <input type="text" class="form-control" name="Address2">
-        </p>
-        <p>City:
-            <input type="text" class="form-control" name="City" required>
-        </p>
-        <p>Telephone:
-            <input type="text" class="form-control" name="Telephone">
-        </p>
-        <p>Mobile:
-            <input type="text" class="form-control" name="Mobile" required>
-        </p>
-        <p><input type="submit" class="btn btn-primary" value="Add New" /></p>
-    </form>
-    <a href="login.php">Already got an account?</a>
+        <div class="title">
+            <h2>Register</h2>
+        </div>
+
+
+        <?php
+        $error_message = "";
+        ?>
+
+        <form method="post" name="userform">
+            <p>UserName:
+                <input type="text" class="form-control" name="UserName" required>
+                <small id="usernameError" class="error-message"></small>
+            </p>
+            <p>Password:
+                <input type="password" class="form-control" name="password" required>
+            </p>
+            <p>Password Validation:
+                <input type="password" class="form-control" name="passwordVal" required>
+            </p>
+            <p>FirstName:
+                <input type="text" class="form-control" name="FirstName" required>
+            </p>
+            <p>Surname:
+                <input type="text" class="form-control" name="Surname" required>
+            </p>
+            <p>AddressLine1:
+                <input type="text" class="form-control" name="Address1" required>
+            </p>
+            <p>AddressLine2:
+                <input type="text" class="form-control" name="Address2">
+            </p>
+            <p>City:
+                <input type="text" class="form-control" name="City" required>
+            </p>
+            <p>Telephone:
+                <input type="text" class="form-control" name="Telephone">
+            </p>
+            <p>Mobile:
+                <input type="text" class="form-control" name="Mobile" required>
+            </p>
+            <p><input type="submit" class="btn btn-primary" value="Add New" /></p>
+            <a class="alreadyaccount" href="login.php">Already got an account?</a>
+        </form>
+
     </div>
+    <footer class="cool-footer">
+        <div class="footer-content">
+            <div class="footer-section footer-links">
+                <a href="#">Home</a>
+                <a href="#">Reserved Books</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2024 Library Management System. All Rights Reserved.
+        </div>
+    </footer>
 </body>
 
 </html>
@@ -72,19 +95,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //check if mobile is numeric and 10 digits long
     if (!is_numeric($Mobile) || strlen($Mobile) != 10) {
-        echo "<div class='alert alert-danger'>Mobile number must be numeric and exactly 10 digits long.</div>";
+        $error_message = "Mobile number must be numeric and exactly 10 digits long";
         exit();
     }
 
     //validate password
     if (strlen($p) != 6) {
-        echo "<div class='alert alert-danger'>Password must be exactly 6 characters long.</div>";
+        $error_message = "Password must be exactly 6 characters long";
         exit();
     }
 
     // check if password matches confirmation
     if ($p !== $pVal) {
-        echo "<div class='alert alert-danger'>Passwords do not match. Please try again.</div>";
+        $error_message = "Passwords do not match. Please try again";
         exit();
     }
 
@@ -94,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //if it returns result for the user searrch
     if ($result->num_rows > 0) {
-        echo "<div class='alert alert-danger'>Username already exists. Please choose another one.</div>";
+        $error_message = "Username already exists. Please choose another one";
         exit();
     }
 
@@ -103,9 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         VALUES ('$Un', '$p', '$FN', '$LN', '$Address1', '$Address2', '$City', '$Telephone', '$Mobile')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<div class='alert alert-success'>New user created successfully.</div>";
+        $error_message = "New user created successfully";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $error_message = "Error:" . $conn->error;
     }
 
     $conn->close();
