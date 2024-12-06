@@ -14,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_ISBN'])){
 
     //execute
     if ($stmt->execute()) {
+        $removeReservation = "DELETE FROM `reservations` WHERE `ISBN` = ?";
+        $stmt1 = $conn->prepare($removeReservation);
+        $stmt1->bind_param("s", $ISBN);
+        $stmt1->execute();
         // echo "Reservation removed successfully.";
         // header('Location: reserved_books.php'); // Redirect to the same page to reflect changes
         // exit();

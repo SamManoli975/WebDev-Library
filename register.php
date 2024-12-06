@@ -95,19 +95,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //check if mobile is numeric and 10 digits long
     if (!is_numeric($Mobile) || strlen($Mobile) != 10) {
-        $error_message = "Mobile number must be numeric and exactly 10 digits long";
+        echo "<script>alert('Mobile number must be numeric and exactly 10 digits long');</script>";
         exit();
     }
 
     //validate password
     if (strlen($p) != 6) {
-        $error_message = "Password must be exactly 6 characters long";
+        echo "<script>alert('Password must be exactly 6 characters long');</script>";
         exit();
     }
 
     // check if password matches confirmation
     if ($p !== $pVal) {
-        $error_message = "Passwords do not match. Please try again";
+        echo "<script>alert('Passwords do not match. Please try again');</script>";
         exit();
     }
 
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //if it returns result for the user searrch
     if ($result->num_rows > 0) {
-        $error_message = "Username already exists. Please choose another one";
+        echo "<script>alert('Username already exists. Please choose another one');</script>";
         exit();
     }
 
